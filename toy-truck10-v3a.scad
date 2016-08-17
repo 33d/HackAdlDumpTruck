@@ -51,6 +51,16 @@ bearing_dia=bed_axle_dia+bed_axle_cutout*2+bed_axle_bearing_wall*2;
 // completely emperical - you'll probably need to tweek this.
 bed_axle_slice_offset=-width/4+support_width/2+bed_axle_cutout*2.5;
 
+module hslogo() {
+  // Scale to be 1 unit long
+  scale([1/80,1/80,1]) {
+    difference() {
+      color("green") linear_extrude(height=1) import("hslogo-base.dxf");
+      color("yellow") translate([0,0,-0.01]) linear_extrude(height=0.2) import("hslogo-detail.dxf");
+    }
+  }
+}
+
 module wheel(extra,aextra)
 {
 	union()
@@ -81,8 +91,13 @@ module bed()
 		{
 			translate([bed_len/2,0,bed_height/2]) 
 				cube([bed_len,width,bed_height],center=true);
-			translate([bed_len/2,0,bed_height/2+bed_axle_dia/2]) 
-				cube([bed_len-bed_wall,width-bed_wall,bed_height-bed_wall],center=true);
+            rotate([0, 0, 270])
+            translate([0, bed_len/4, bed_height*0.9+0.001])
+            scale([bed_len, bed_len, bed_height*0.1])
+            translate([-0.5, 0, 0])
+			//translate([bed_len/2,0,bed_height/2+bed_axle_dia/2]) 
+				//cube([bed_len-bed_wall,width-bed_wall,bed_height-bed_wall],center=true);
+            hslogo()
 			rotate([90,0,0]) cylinder(h=width+0.01,r=cutout_dia/2,center=true);
 		}
 		difference()
