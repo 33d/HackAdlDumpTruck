@@ -97,7 +97,7 @@ module bed()
             translate([-0.5, 0, 0])
 			//translate([bed_len/2,0,bed_height/2+bed_axle_dia/2]) 
 				//cube([bed_len-bed_wall,width-bed_wall,bed_height-bed_wall],center=true);
-            hslogo()
+            hslogo();
 			rotate([90,0,0]) cylinder(h=width+0.01,r=cutout_dia/2,center=true);
 		}
 		difference()
